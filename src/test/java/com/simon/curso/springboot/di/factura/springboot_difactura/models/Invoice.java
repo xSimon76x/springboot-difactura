@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 @Component
 public class Invoice {
@@ -30,10 +31,16 @@ public class Invoice {
     
     @PostConstruct
     public void init() {
-        //Esto siempre se ejecutara luego de haber creado o instanciado el componente, luego de la ejecucion del constructor
+        //Esto siempre se auto-ejecutara luego de haber creado o instanciado el componente, luego de la ejecucion del constructor
         System.out.println("Luego de haber creado el componente de la factura.");
         client.setName(client.getName().concat(" Pepe"));
         System.out.println(client); 
+    }
+
+    @PreDestroy
+    public void destroy() {
+        //Esto se auto-ejecutara cuando se destruya el componente
+        System.out.println("Al destruir el componente");
     }
 
     public Client getClient() {
